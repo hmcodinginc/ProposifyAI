@@ -116,7 +116,6 @@ export const ProposalEditorPage: React.FC = () => {
     const temp = updated[index];
     updated[index] = updated[targetIdx];
     updated[targetIdx] = temp;
-    // re-index order
     updated.forEach((s, idx) => (s.order_index = idx));
     setSections(updated);
   };
@@ -153,20 +152,20 @@ export const ProposalEditorPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       {/* Action Header */}
       <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-16 z-30 shadow-xl">
-        <div className="space-y-1">
+        <div className="space-y-1 text-center md:text-left flex-1">
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="text-xl font-bold text-white bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none w-full"
+            className="text-xl font-bold text-white bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none w-full text-center"
           />
-          <div className="flex items-center gap-3 text-xs text-slate-400">
+          <div className="flex items-center justify-center gap-3 text-xs text-slate-400">
             <input
               type="text"
               value={projectType}
               onChange={(e) => setProjectType(e.target.value)}
               placeholder="Project Type"
-              className="bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none"
+              className="bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none text-center"
             />
             <span>•</span>
             <select
@@ -182,7 +181,7 @@ export const ProposalEditorPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center justify-center gap-2 flex-wrap shrink-0">
           <button
             onClick={() => {
               setActiveTab('versions');
@@ -219,7 +218,7 @@ export const ProposalEditorPage: React.FC = () => {
       </div>
 
       {/* Editor Sub-Navigation Tabs */}
-      <div className="flex border-b border-slate-800 space-x-6 text-sm font-semibold">
+      <div className="flex justify-center border-b border-slate-800 space-x-6 text-sm font-semibold">
         <button
           onClick={() => setActiveTab('content')}
           className={`pb-3 transition-colors ${
@@ -253,10 +252,10 @@ export const ProposalEditorPage: React.FC = () => {
       {activeTab === 'content' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <p className="text-xs text-slate-400">Reorder, edit titles, or format markdown section content below.</p>
+            <p className="text-xs text-slate-400 text-center flex-1">Reorder, edit titles, or format markdown section content below.</p>
             <button
               onClick={handleAddSection}
-              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl"
+              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl shrink-0"
             >
               <Plus className="h-3.5 w-3.5" /> Add Section
             </button>
@@ -264,7 +263,7 @@ export const ProposalEditorPage: React.FC = () => {
 
           <div className="space-y-6">
             {sections.map((sec, idx) => (
-              <div key={idx} className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-3">
+              <div key={idx} className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-3 text-center">
                 <div className="flex items-center justify-between gap-4">
                   <input
                     type="text"
@@ -274,7 +273,7 @@ export const ProposalEditorPage: React.FC = () => {
                       updated[idx].title = e.target.value;
                       setSections(updated);
                     }}
-                    className="text-lg font-bold text-white bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none w-full"
+                    className="text-lg font-bold text-white bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none w-full text-center"
                   />
                   <div className="flex items-center gap-1 shrink-0">
                     <button
@@ -308,7 +307,7 @@ export const ProposalEditorPage: React.FC = () => {
                     updated[idx].content = e.target.value;
                     setSections(updated);
                   }}
-                  className="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono resize-y"
+                  className="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono resize-y text-center"
                 />
               </div>
             ))}
@@ -320,10 +319,10 @@ export const ProposalEditorPage: React.FC = () => {
       {activeTab === 'pricing' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <p className="text-xs text-slate-400">Modify milestone pricing, hours, and rates.</p>
+            <p className="text-xs text-slate-400 text-center flex-1">Modify milestone pricing, hours, and rates.</p>
             <button
               onClick={handleAddPricingItem}
-              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl"
+              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl shrink-0"
             >
               <Plus className="h-3.5 w-3.5" /> Add Milestone Item
             </button>
@@ -333,12 +332,12 @@ export const ProposalEditorPage: React.FC = () => {
             <table className="w-full text-left text-sm text-slate-300">
               <thead className="bg-slate-950 text-xs uppercase text-slate-400 border-b border-slate-800">
                 <tr>
-                  <th className="p-4">Milestone Title</th>
-                  <th className="p-4">Description</th>
-                  <th className="p-4 w-24">Hours</th>
-                  <th className="p-4 w-28">Rate ($)</th>
-                  <th className="p-4 w-32 text-right">Amount ($)</th>
-                  <th className="p-4 w-12"></th>
+                  <th className="p-4 text-center">Milestone Title</th>
+                  <th className="p-4 text-center">Description</th>
+                  <th className="p-4 w-24 text-center">Hours</th>
+                  <th className="p-4 w-28 text-center">Rate ($)</th>
+                  <th className="p-4 w-32 text-center">Amount ($)</th>
+                  <th className="p-4 w-12 text-center"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
@@ -353,7 +352,7 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].title = e.target.value;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white font-semibold text-sm w-full"
+                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white font-semibold text-sm w-full text-center"
                       />
                     </td>
                     <td className="p-4">
@@ -365,7 +364,7 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].description = e.target.value;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 text-xs w-full"
+                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 text-xs w-full text-center"
                       />
                     </td>
                     <td className="p-4">
@@ -379,7 +378,7 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].amount = hrs * updated[idx].rate;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white text-xs w-full text-right"
+                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white text-xs w-full text-center"
                       />
                     </td>
                     <td className="p-4">
@@ -393,13 +392,13 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].amount = updated[idx].hours * r;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white text-xs w-full text-right"
+                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white text-xs w-full text-center"
                       />
                     </td>
-                    <td className="p-4 text-right font-extrabold text-emerald-400">
+                    <td className="p-4 text-center font-extrabold text-emerald-400">
                       ${item.amount.toLocaleString()}
                     </td>
-                    <td className="p-4 text-right">
+                    <td className="p-4 text-center">
                       <button onClick={() => handleRemovePricingItem(idx)} className="text-slate-500 hover:text-red-400">
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -409,8 +408,8 @@ export const ProposalEditorPage: React.FC = () => {
               </tbody>
               <tfoot className="bg-slate-950 border-t border-slate-800 font-bold">
                 <tr>
-                  <td colSpan={4} className="p-4 text-right text-slate-300">Total Investment Summary:</td>
-                  <td className="p-4 text-right text-emerald-400 text-lg">${calculatedTotal.toLocaleString()}</td>
+                  <td colSpan={4} className="p-4 text-center text-slate-300">Total Investment Summary:</td>
+                  <td className="p-4 text-center text-emerald-400 text-lg">${calculatedTotal.toLocaleString()}</td>
                   <td></td>
                 </tr>
               </tfoot>
@@ -421,24 +420,24 @@ export const ProposalEditorPage: React.FC = () => {
 
       {/* TAB 3: VERSIONS HISTORY */}
       {activeTab === 'versions' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-          <h3 className="text-lg font-bold text-white">Proposal Revision History</h3>
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 text-center">
+          <h3 className="text-lg font-bold text-white text-center">Proposal Revision History</h3>
           {versions.length > 0 ? (
             <div className="space-y-3">
               {versions.map((ver) => (
-                <div key={ver.id} className="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
-                  <div>
-                    <span className="text-xs font-bold text-blue-400">Version #{ver.version_number}</span>
-                    <p className="text-xs text-slate-400">Saved on {new Date(ver.created_at).toLocaleString()}</p>
+                <div key={ver.id} className="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-center justify-between text-center">
+                  <div className="text-center flex-1">
+                    <span className="text-xs font-bold text-blue-400 text-center">Version #{ver.version_number}</span>
+                    <p className="text-xs text-slate-400 text-center">Saved on {new Date(ver.created_at).toLocaleString()}</p>
                   </div>
-                  <span className="text-xs text-slate-300 font-medium">
+                  <span className="text-xs text-slate-300 font-medium shrink-0">
                     {ver.data.sections?.length || 0} Sections • ${ver.data.total_price?.toLocaleString() || 0}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-400">Click "Save Changes" to record version snapshots.</p>
+            <p className="text-xs text-slate-400 text-center">Click "Save Changes" to record version snapshots.</p>
           )}
         </div>
       )}
@@ -446,9 +445,9 @@ export const ProposalEditorPage: React.FC = () => {
       {/* Share Modal */}
       {showShareModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
-            <h3 className="text-lg font-bold text-white">Share Proposal with Client</h3>
-            <p className="text-xs text-slate-400">Send this unique link to your client for online viewing, PDF download, and acceptance.</p>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4 text-center">
+            <h3 className="text-lg font-bold text-white text-center">Share Proposal with Client</h3>
+            <p className="text-xs text-slate-400 text-center">Send this unique link to your client for online viewing, PDF download, and acceptance.</p>
 
             <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-center justify-between gap-2">
               <span className="text-xs font-mono text-slate-300 truncate">
@@ -463,7 +462,7 @@ export const ProposalEditorPage: React.FC = () => {
               </button>
             </div>
 
-            <div className="flex justify-end pt-2">
+            <div className="flex justify-center pt-2">
               <button
                 onClick={() => setShowShareModal(false)}
                 className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold hover:bg-slate-700 transition-colors"
