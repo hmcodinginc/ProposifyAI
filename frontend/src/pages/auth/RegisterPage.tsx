@@ -27,7 +27,7 @@ export const RegisterPage: React.FC = () => {
         company_name: companyName,
       });
       login(res.data.access_token, res.data.user);
-      navigate('/');
+      navigate('/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Failed to create account. Please try again.');
     } finally {
@@ -36,21 +36,24 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="min-h-screen bg-[#0b0f19] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden font-['Inter',sans-serif]">
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+      <div className="absolute top-1/2 right-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl pointer-events-none animate-float" />
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center">
-        <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-xl shadow-blue-500/25 mx-auto mb-4">
-          <Sparkles className="h-6 w-6 text-white" />
-        </div>
-        <h2 className="text-3xl font-extrabold text-white tracking-tight">Create your account</h2>
-        <p className="mt-2 text-sm text-slate-400">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center animate-fade-in">
+        <Link to="/" className="inline-block">
+          <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-purple-500 flex items-center justify-center shadow-xl shadow-violet-500/25 mx-auto mb-4 animate-float">
+            <Sparkles className="h-6 w-6 text-white" />
+          </div>
+        </Link>
+        <h2 className="text-3xl font-extrabold text-white tracking-tight text-center">Create your account</h2>
+        <p className="mt-2 text-sm text-slate-400 text-center">
           Join ProposifyAI and start generating high-converting proposals
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <div className="bg-slate-900 border border-slate-800 py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 animate-fade-in">
+        <div className="glass-card py-8 px-4 shadow-2xl sm:rounded-3xl sm:px-10 border border-violet-500/20">
           {error && (
             <div className="mb-6 bg-red-500/10 border border-red-500/30 rounded-xl p-3.5 flex items-center gap-3 text-red-400 text-sm">
               <AlertCircle className="h-5 w-5 shrink-0" />
@@ -60,7 +63,7 @@ export const RegisterPage: React.FC = () => {
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5 text-center">
                 Full Name
               </label>
               <div className="relative">
@@ -72,14 +75,14 @@ export const RegisterPage: React.FC = () => {
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  className="w-full pl-10 pr-4 py-2 bg-[#090d16] border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm text-center"
                   placeholder="Sarah Jenkins"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5 text-center">
                 Company / Agency Name
               </label>
               <div className="relative">
@@ -90,14 +93,14 @@ export const RegisterPage: React.FC = () => {
                   type="text"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  className="w-full pl-10 pr-4 py-2 bg-[#090d16] border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm text-center"
                   placeholder="Apex Digital Solutions"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5 text-center">
                 Email Address
               </label>
               <div className="relative">
@@ -109,14 +112,14 @@ export const RegisterPage: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  className="w-full pl-10 pr-4 py-2 bg-[#090d16] border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm text-center"
                   placeholder="sarah@apexdigital.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5 text-center">
                 Password
               </label>
               <div className="relative">
@@ -128,7 +131,7 @@ export const RegisterPage: React.FC = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  className="w-full pl-10 pr-4 py-2 bg-[#090d16] border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm text-center"
                   placeholder="••••••••"
                 />
               </div>
@@ -137,7 +140,7 @@ export const RegisterPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 mt-2 rounded-xl font-semibold text-sm bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/25 transition-all transform active:scale-95 disabled:opacity-50"
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 mt-2 rounded-xl font-semibold text-sm bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-lg shadow-violet-500/25 transition-all transform active:scale-95 disabled:opacity-50"
             >
               {loading ? 'Creating account...' : (
                 <>
@@ -150,7 +153,7 @@ export const RegisterPage: React.FC = () => {
 
           <div className="mt-6 text-center text-xs text-slate-400">
             Already have an account?{' '}
-            <Link to="/login" className="font-semibold text-blue-400 hover:text-blue-300">
+            <Link to="/login" className="font-semibold text-violet-400 hover:text-violet-300">
               Sign in
             </Link>
           </div>

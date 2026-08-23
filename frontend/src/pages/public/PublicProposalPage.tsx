@@ -65,8 +65,8 @@ export const PublicProposalPage: React.FC = () => {
       <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
         <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md p-8 text-center space-y-4">
           <AlertCircle className="h-10 w-10 text-red-400 mx-auto" />
-          <h2 className="text-xl font-bold text-white">Proposal Not Found</h2>
-          <p className="text-sm text-slate-400">{error || 'This proposal link is invalid or no longer accessible.'}</p>
+          <h2 className="text-xl font-bold text-white text-center">Proposal Not Found</h2>
+          <p className="text-sm text-slate-400 text-center">{error || 'This proposal link is invalid or no longer accessible.'}</p>
         </div>
       </div>
     );
@@ -76,20 +76,20 @@ export const PublicProposalPage: React.FC = () => {
     <div className="min-h-screen bg-slate-950 text-slate-100 py-8 px-4 sm:px-6 lg:px-8 font-['Inter',sans-serif]">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Top Header Card with Branding */}
-        <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+        <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl flex flex-col items-center justify-center text-center gap-6">
+          <div className="space-y-2 text-center">
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-400 text-center">
                 {proposal.company_name || 'Business Proposal'}
               </span>
             </div>
-            <h1 className="text-3xl font-extrabold text-white tracking-tight">{proposal.title}</h1>
-            <p className="text-xs text-slate-400">
+            <h1 className="text-3xl font-extrabold text-white tracking-tight text-center">{proposal.title}</h1>
+            <p className="text-xs text-slate-400 text-center">
               Prepared for <span className="font-semibold text-slate-200">{proposal.client_name || 'Valued Client'}</span> • Created {new Date(proposal.created_at).toLocaleDateString()}
             </p>
           </div>
 
-          <div className="flex items-center gap-3 self-start md:self-auto">
+          <div className="flex items-center justify-center gap-3">
             <button
               onClick={handleDownloadPDF}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/60 transition-all shadow-md"
@@ -102,55 +102,55 @@ export const PublicProposalPage: React.FC = () => {
 
         {/* Status Alert Banner if already acted upon */}
         {proposal.status === 'accepted' && (
-          <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-xl flex items-center gap-3 text-emerald-400 text-sm font-semibold">
+          <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-xl flex items-center justify-center gap-3 text-emerald-400 text-sm font-semibold text-center">
             <CheckCircle2 className="h-5 w-5 shrink-0" />
             <span>This proposal was accepted! Our team will contact you shortly for kickoff.</span>
           </div>
         )}
         {proposal.status === 'changes_requested' && (
-          <div className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl flex items-center gap-3 text-amber-400 text-sm font-semibold">
+          <div className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl flex items-center justify-center gap-3 text-amber-400 text-sm font-semibold text-center">
             <MessageSquare className="h-5 w-5 shrink-0" />
             <span>Changes were requested. We are reviewing your feedback and will update the proposal.</span>
           </div>
         )}
 
         {/* Proposal Document Body */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-8">
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl space-y-8 text-center">
           {proposal.sections?.map((sec, idx) => (
-            <div key={idx} className="space-y-3 border-b border-slate-800/80 pb-6 last:border-none">
-              <h2 className="text-xl font-bold text-blue-400">{sec.title}</h2>
-              <div className="text-sm text-slate-300 whitespace-pre-wrap leading-relaxed">{sec.content}</div>
+            <div key={idx} className="space-y-3 border-b border-slate-800/80 pb-6 last:border-none text-center">
+              <h2 className="text-xl font-bold text-blue-400 text-center">{sec.title}</h2>
+              <div className="text-sm text-slate-300 whitespace-pre-wrap leading-relaxed text-center">{sec.content}</div>
             </div>
           ))}
 
           {/* Pricing & Investment Table */}
           {proposal.pricing_items && proposal.pricing_items.length > 0 && (
-            <div className="space-y-4 pt-4 border-t border-slate-800">
-              <h2 className="text-xl font-bold text-white">Pricing & Investment Breakdown</h2>
+            <div className="space-y-4 pt-4 border-t border-slate-800 text-center">
+              <h2 className="text-xl font-bold text-white text-center">Pricing & Investment Breakdown</h2>
               <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden">
                 <table className="w-full text-left text-sm text-slate-300">
                   <thead className="bg-slate-900 text-xs uppercase text-slate-400 border-b border-slate-800">
                     <tr>
-                      <th className="p-4">Milestone / Deliverable</th>
-                      <th className="p-4">Description</th>
-                      <th className="p-4 text-right">Est. Hours</th>
-                      <th className="p-4 text-right">Amount</th>
+                      <th className="p-4 text-center">Milestone / Deliverable</th>
+                      <th className="p-4 text-center">Description</th>
+                      <th className="p-4 text-center">Est. Hours</th>
+                      <th className="p-4 text-center">Amount</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800">
                     {proposal.pricing_items.map((item, idx) => (
                       <tr key={idx}>
-                        <td className="p-4 font-semibold text-white">{item.title}</td>
-                        <td className="p-4 text-xs text-slate-400">{item.description || '-'}</td>
-                        <td className="p-4 text-right font-semibold">{item.hours} hrs</td>
-                        <td className="p-4 text-right font-bold text-emerald-400">${item.amount.toLocaleString()}</td>
+                        <td className="p-4 font-semibold text-white text-center">{item.title}</td>
+                        <td className="p-4 text-xs text-slate-400 text-center">{item.description || '-'}</td>
+                        <td className="p-4 text-center font-semibold">{item.hours} hrs</td>
+                        <td className="p-4 text-center font-bold text-emerald-400">${item.amount.toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>
                   <tfoot className="bg-slate-900 border-t border-slate-800 font-bold">
                     <tr>
-                      <td colSpan={3} className="p-4 text-right text-slate-200">TOTAL ESTIMATED INVESTMENT:</td>
-                      <td className="p-4 text-right text-emerald-400 text-lg">${proposal.total_price.toLocaleString()} {proposal.currency}</td>
+                      <td colSpan={3} className="p-4 text-center text-slate-200">TOTAL ESTIMATED INVESTMENT:</td>
+                      <td className="p-4 text-center text-emerald-400 text-lg">${proposal.total_price.toLocaleString()} {proposal.currency}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -161,14 +161,14 @@ export const PublicProposalPage: React.FC = () => {
 
         {/* Client Action Box (Accept or Request Changes) */}
         {proposal.status !== 'accepted' && (
-          <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
-            <div>
-              <h3 className="text-xl font-bold text-white">Review & Action</h3>
-              <p className="text-xs text-slate-400 mt-1">Accept this proposal to initiate the project or send us feedback for adjustments.</p>
+          <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6 text-center">
+            <div className="text-center">
+              <h3 className="text-xl font-bold text-white text-center">Review & Action</h3>
+              <p className="text-xs text-slate-400 mt-1 text-center">Accept this proposal to initiate the project or send us feedback for adjustments.</p>
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+            <div className="space-y-2 text-center">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider text-center">
                 Feedback or Requested Changes (Optional)
               </label>
               <textarea
@@ -176,7 +176,7 @@ export const PublicProposalPage: React.FC = () => {
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}
                 placeholder="Add comments, timeline preferences, or requested modifications..."
-                className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-center"
               />
             </div>
 
