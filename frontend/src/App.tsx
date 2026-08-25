@@ -18,8 +18,8 @@ const ProtectedLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="animate-spin h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+      <div className="min-h-screen bg-[#faf7f2] flex items-center justify-center">
+        <div className="animate-spin h-8 w-8 border-2 border-[#4a382a] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -29,11 +29,11 @@ const ProtectedLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col font-['Inter',sans-serif]">
+    <div className="min-h-screen bg-[#faf7f2] text-[#2c221e] flex flex-col font-['Plus_Jakarta_Sans',sans-serif] selection:bg-[#4a382a] selection:text-white">
       <Navbar />
-      <div className="flex flex-1">
+      <div className="flex flex-1 w-full relative">
         <Sidebar />
-        <main className="flex-1 p-6 lg:p-8 max-w-7xl mx-auto w-full overflow-x-hidden">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto overflow-x-hidden">
           {children}
         </main>
       </div>

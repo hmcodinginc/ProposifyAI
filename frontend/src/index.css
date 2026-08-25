@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,13 +10,26 @@
   }
   
   body {
+<<<<<<< HEAD
+    @apply bg-[#faf7f2] text-[#2c221e] min-h-screen overflow-x-hidden antialiased selection:bg-[#4a382a] selection:text-white font-['Plus_Jakarta_Sans',sans-serif];
+    background-image: 
+      radial-gradient(circle at 50% 25%, rgba(228, 198, 160, 0.35) 0%, transparent 55%),
+      radial-gradient(circle at 10% 80%, rgba(235, 215, 185, 0.25) 0%, transparent 45%),
+      radial-gradient(#d6c7b2 0.7px, transparent 0.7px);
+    background-size: 100% 100%, 100% 100%, 20px 20px;
+=======
     @apply bg-[#0b0f19] text-slate-100 min-h-screen overflow-x-hidden antialiased selection:bg-violet-500 selection:text-white;
     background-image: 
       radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
       radial-gradient(circle at 85% 75%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
       radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.6) 0%, transparent 100%);
+>>>>>>> origin/main
     background-attachment: fixed;
   }
+}
+
+.font-serif-title {
+  font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
 }
 
 /* Custom Keyframe Animations */
@@ -29,6 +44,28 @@
 
 @keyframes pulseGlow {
   0%, 100% {
+<<<<<<< HEAD
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+=======
     opacity: 0.35;
     transform: scale(1);
   }
@@ -48,6 +85,7 @@
 }
 
 /* Utility Classes */
+>>>>>>> origin/main
 .animate-float {
   animation: float 5s ease-in-out infinite;
 }
@@ -62,19 +100,36 @@
   animation: shimmer 2.5s infinite;
 }
 
-.glass-card {
-  background: rgba(15, 23, 42, 0.75);
+/* Warm Cream Glass & Card Styling */
+.warm-glass-card {
+  background: rgba(247, 242, 234, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+<<<<<<< HEAD
+  border: 1px solid rgba(214, 199, 178, 0.6);
+  box-shadow: 0 10px 30px -10px rgba(74, 56, 42, 0.05);
+=======
   border: 1px solid rgba(255, 255, 255, 0.08);
+>>>>>>> origin/main
 }
 
-.glass-card-hover {
+.warm-card-hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.glass-card-hover:hover {
+.warm-card-hover:hover {
   transform: translateY(-4px);
+<<<<<<< HEAD
+  border-color: rgba(186, 131, 80, 0.5);
+  box-shadow: 0 16px 36px -10px rgba(74, 56, 42, 0.12);
+}
+
+.bronze-gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#ba8350] via-[#945f32] to-[#59391a];
+}
+
+/* Scrollbar */
+=======
   border-color: rgba(139, 92, 246, 0.4);
   box-shadow: 0 16px 36px -10px rgba(139, 92, 246, 0.25);
 }
@@ -84,20 +139,21 @@
 }
 
 /* Custom Scrollbar */
+>>>>>>> origin/main
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #faf7f2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #d6c7b2;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #bfae97;
 }

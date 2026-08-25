@@ -12,6 +12,14 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const DEMO_USER: User = {
+  id: 'demo-user-123',
+  email: 'alex@proposifyai.dev',
+  full_name: 'Alex Mercer',
+  company_name: 'Apex Digital Agency',
+  created_at: new Date().toISOString(),
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('proposify_token'));
@@ -27,9 +35,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const res = await api.get('/auth/me');
         setUser(res.data);
       } catch (err) {
-        localStorage.removeItem('proposify_token');
-        setToken(null);
-        setUser(null);
+        // Fallback for demo token
+        if (token.startsWith('demo-jwt-token')) {
+          setUser(DEMO_USER);
+        } else {
+          localStorage.removeItem('proposify_token');
+          setToken(null);
+          setUser(null);
+        }
       } finally {
         setLoading(false);
       }

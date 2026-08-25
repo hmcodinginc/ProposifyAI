@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { api } from '../../services/api';
 import { DashboardStats } from '../../types';
 import { Link } from 'react-router-dom';
-import { FileText, Send, CheckCircle2, Clock, Users, Wand2, Plus, ExternalLink, Download } from 'lucide-react';
+import { FileText, Send, CheckCircle2, Clock, Wand2, ExternalLink } from 'lucide-react';
 
 export const DashboardPage: React.FC = () => {
-  const { data: stats, isLoading, error } = useQuery<DashboardStats>({
+  const { data: stats, isLoading } = useQuery<DashboardStats>({
     queryKey: ['dashboard-stats'],
     queryFn: async () => {
       const res = await api.get('/dashboard/stats');
@@ -17,133 +17,131 @@ export const DashboardPage: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'accepted':
-        return <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Accepted</span>;
+        return <span className="px-3 py-1 text-xs font-bold rounded-full bg-[#eef5eb] text-[#2e6b22] border border-[#cbe3c5]">Accepted</span>;
       case 'sent':
-        return <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20">Sent</span>;
+        return <span className="px-3 py-1 text-xs font-bold rounded-full bg-[#f1eae0] text-[#4a382a] border border-[#e3d7c5]">Sent</span>;
       case 'changes_requested':
-        return <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Changes Requested</span>;
+        return <span className="px-3 py-1 text-xs font-bold rounded-full bg-[#fcf5eb] text-[#a86523] border border-[#f0dfcc]">Changes Requested</span>;
       default:
-        return <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-slate-800 text-slate-300">Draft</span>;
+        return <span className="px-3 py-1 text-xs font-bold rounded-full bg-[#eee6da] text-[#6e5d53]">Draft</span>;
     }
   };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin h-8 w-8 border-2 border-violet-500 border-t-transparent rounded-full"></div>
+        <div className="animate-spin h-8 w-8 border-2 border-[#4a382a] border-t-transparent rounded-full" />
       </div>
     );
   }
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Top Banner / Welcome */}
-      <div className="glass-card flex flex-col items-center justify-center text-center gap-4 bg-gradient-to-r from-slate-900/90 via-violet-950/20 to-slate-900/90 p-8 rounded-3xl border border-violet-500/20 shadow-xl">
+      {/* Top Banner Header */}
+      <div className="warm-glass-card flex flex-col sm:flex-row items-center justify-between p-8 rounded-3xl border border-[#e6dbc9] shadow-sm gap-6">
         <div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight text-center">Proposal Operations Center</h1>
-          <p className="text-sm text-slate-400 mt-1 text-center">Overview of active client requirements, AI generations, and conversion statistics.</p>
+          <h1 className="font-serif-title text-3xl sm:text-4xl font-normal text-[#2c221e] tracking-tight">Proposal Operations Center</h1>
+          <p className="text-sm text-[#6e5d53] mt-1">Overview of active client requirements, AI generations, and conversion statistics.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <Link
-            to="/proposals/new"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-lg shadow-violet-500/25 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95"
-          >
-            <Wand2 className="h-4 w-4" />
-            <span>AI Proposal Generator</span>
-          </Link>
-        </div>
+        <Link
+          to="/proposals/new"
+          className="flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm bg-[#4a382a] hover:bg-[#382a1e] text-white shadow-sm transition-all transform hover:-translate-y-0.5 active:scale-95 shrink-0"
+        >
+          <Wand2 className="h-4 w-4" />
+          <span>AI Proposal Generator</span>
+        </Link>
       </div>
 
-      {/* Metrics Cards */}
+      {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="glass-card glass-card-hover p-6 rounded-3xl relative overflow-hidden group text-center">
+        <div className="warm-glass-card warm-card-hover p-6 rounded-3xl relative overflow-hidden group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Proposals</span>
-            <div className="p-2.5 rounded-xl bg-violet-600/10 text-violet-400 border border-violet-500/20">
+            <span className="text-xs font-bold text-[#6e5d53] uppercase tracking-wider">Total Proposals</span>
+            <div className="p-2.5 rounded-xl bg-[#eee6da] text-[#4a382a] border border-[#e2d6c3]">
               <FileText className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline justify-center">
-            <span className="text-3xl font-extrabold text-white text-center">{stats?.total_proposals || 0}</span>
+          <div className="mt-4 flex items-baseline">
+            <span className="text-3xl font-extrabold text-[#2c221e]">{stats?.total_proposals || 0}</span>
           </div>
         </div>
 
-        <div className="glass-card glass-card-hover p-6 rounded-3xl relative overflow-hidden group text-center">
+        <div className="warm-glass-card warm-card-hover p-6 rounded-3xl relative overflow-hidden group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Draft Proposals</span>
-            <div className="p-2.5 rounded-xl bg-slate-800 text-slate-400">
+            <span className="text-xs font-bold text-[#6e5d53] uppercase tracking-wider">Draft Proposals</span>
+            <div className="p-2.5 rounded-xl bg-[#eee6da] text-[#6e5d53]">
               <Clock className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline justify-center">
-            <span className="text-3xl font-extrabold text-slate-300 text-center">{stats?.draft_proposals || 0}</span>
+          <div className="mt-4 flex items-baseline">
+            <span className="text-3xl font-extrabold text-[#6e5d53]">{stats?.draft_proposals || 0}</span>
           </div>
         </div>
 
-        <div className="glass-card glass-card-hover p-6 rounded-3xl relative overflow-hidden group text-center">
+        <div className="warm-glass-card warm-card-hover p-6 rounded-3xl relative overflow-hidden group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sent Proposals</span>
-            <div className="p-2.5 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20">
+            <span className="text-xs font-bold text-[#6e5d53] uppercase tracking-wider">Sent Proposals</span>
+            <div className="p-2.5 rounded-xl bg-[#f1eae0] text-[#4a382a] border border-[#e3d7c5]">
               <Send className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline justify-center">
-            <span className="text-3xl font-extrabold text-violet-400 text-center">{stats?.sent_proposals || 0}</span>
+          <div className="mt-4 flex items-baseline">
+            <span className="text-3xl font-extrabold text-[#4a382a]">{stats?.sent_proposals || 0}</span>
           </div>
         </div>
 
-        <div className="glass-card glass-card-hover p-6 rounded-3xl relative overflow-hidden group text-center">
+        <div className="warm-glass-card warm-card-hover p-6 rounded-3xl relative overflow-hidden group">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Accepted Proposals</span>
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="text-xs font-bold text-[#6e5d53] uppercase tracking-wider">Accepted Proposals</span>
+            <div className="p-2.5 rounded-xl bg-[#eef5eb] text-[#2e6b22] border border-[#cbe3c5]">
               <CheckCircle2 className="h-5 w-5" />
             </div>
           </div>
-          <div className="mt-4 flex items-baseline justify-center">
-            <span className="text-3xl font-extrabold text-emerald-400 text-center">{stats?.accepted_proposals || 0}</span>
+          <div className="mt-4 flex items-baseline">
+            <span className="text-3xl font-extrabold text-[#2e6b22]">{stats?.accepted_proposals || 0}</span>
           </div>
         </div>
       </div>
 
       {/* Recent Proposals Table */}
-      <div className="glass-card rounded-3xl overflow-hidden shadow-xl border border-slate-800/80">
-        <div className="p-6 border-b border-slate-800/80 flex items-center justify-between">
-          <div className="flex-1 text-center">
-            <h2 className="text-xl font-bold text-white text-center">Recent Proposals</h2>
-            <p className="text-xs text-slate-400 mt-0.5 text-center">Latest generated documents and shared status.</p>
+      <div className="warm-glass-card rounded-3xl overflow-hidden shadow-sm border border-[#e6dbc9]">
+        <div className="p-6 border-b border-[#e6dbc9] flex items-center justify-between">
+          <div>
+            <h2 className="font-serif-title text-2xl font-normal text-[#2c221e]">Recent Proposals</h2>
+            <p className="text-xs text-[#6e5d53] mt-0.5">Latest generated documents and client portal activity.</p>
           </div>
-          <Link to="/proposals" className="text-xs font-semibold text-violet-400 hover:text-violet-300 flex items-center gap-1 shrink-0">
+          <Link to="/proposals" className="text-xs font-bold text-[#4a382a] hover:text-[#945f32] flex items-center gap-1 shrink-0">
             View All <ExternalLink className="h-3 w-3" />
           </Link>
         </div>
 
         {stats?.recent_proposals && stats.recent_proposals.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-[#090d16]/80 text-xs uppercase text-slate-400 border-b border-slate-800">
+            <table className="w-full text-left text-sm text-[#2c221e]">
+              <thead className="bg-[#f5efe6] text-xs uppercase text-[#6e5d53] border-b border-[#e6dbc9] font-bold">
                 <tr>
-                  <th className="px-6 py-3.5 text-center">Proposal Title</th>
-                  <th className="px-6 py-3.5 text-center">Project Type</th>
-                  <th className="px-6 py-3.5 text-center">Status</th>
-                  <th className="px-6 py-3.5 text-center">Value</th>
-                  <th className="px-6 py-3.5 text-center">Action</th>
+                  <th className="px-6 py-4">Proposal Title</th>
+                  <th className="px-6 py-4">Project Type</th>
+                  <th className="px-6 py-4 text-center">Status</th>
+                  <th className="px-6 py-4 text-right">Value</th>
+                  <th className="px-6 py-4 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-[#e6dbc9]/60 bg-[#fcfbf8]">
                 {stats.recent_proposals.map((proposal) => (
-                  <tr key={proposal.id} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="px-6 py-4 font-semibold text-white text-center">
-                      <Link to={`/proposals/${proposal.id}`} className="hover:text-violet-400 transition-colors">
+                  <tr key={proposal.id} className="hover:bg-[#f5efe6] transition-colors">
+                    <td className="px-6 py-4 font-bold text-[#2c221e]">
+                      <Link to={`/proposals/${proposal.id}`} className="hover:text-[#945f32] transition-colors">
                         {proposal.title}
                       </Link>
                     </td>
-                    <td className="px-6 py-4 text-xs text-slate-400 text-center">{proposal.project_type || 'Custom'}</td>
+                    <td className="px-6 py-4 text-xs text-[#6e5d53]">{proposal.project_type || 'Custom'}</td>
                     <td className="px-6 py-4 text-center">{getStatusBadge(proposal.status)}</td>
-                    <td className="px-6 py-4 font-semibold text-slate-200 text-center">${proposal.total_price.toLocaleString()}</td>
+                    <td className="px-6 py-4 font-bold text-[#2c221e] text-right">${proposal.total_price.toLocaleString()}</td>
                     <td className="px-6 py-4 text-center">
                       <Link
                         to={`/proposals/${proposal.id}`}
-                        className="px-3.5 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors inline-block"
+                        className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#eee6da] hover:bg-[#e4dacb] text-[#4a382a] border border-[#e2d6c3] transition-colors inline-block"
                       >
                         Edit / View
                       </Link>
@@ -154,12 +152,12 @@ export const DashboardPage: React.FC = () => {
             </table>
           </div>
         ) : (
-          <div className="p-12 text-center text-slate-400 space-y-3">
-            <FileText className="h-10 w-10 mx-auto text-slate-600 animate-float" />
-            <p className="text-sm text-center">No proposals generated yet.</p>
+          <div className="p-12 text-center text-[#6e5d53] space-y-3">
+            <FileText className="h-10 w-10 mx-auto text-[#bfae97]" />
+            <p className="text-sm">No proposals generated yet.</p>
             <Link
               to="/proposals/new"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-violet-600 text-white hover:bg-violet-500 transition-colors shadow-lg shadow-violet-500/20"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-[#4a382a] text-white hover:bg-[#382a1e] transition-colors shadow-sm"
             >
               <Wand2 className="h-3.5 w-3.5" />
               Generate Your First Proposal

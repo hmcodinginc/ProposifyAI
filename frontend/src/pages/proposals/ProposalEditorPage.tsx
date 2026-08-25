@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../../services/api';
 import { Proposal, ProposalSection, PricingItem, ProposalVersion } from '../../types';
-import { Save, Download, Share2, Plus, Trash2, ArrowUp, ArrowDown, History, Check, FileText, DollarSign, Clock, Layers, Copy, ChevronRight } from 'lucide-react';
+import { Save, Download, Share2, Plus, Trash2, ArrowUp, ArrowDown, History, Check, Copy } from 'lucide-react';
 
 export const ProposalEditorPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const [title, setTitle] = useState('');
@@ -141,7 +140,7 @@ export const ProposalEditorPage: React.FC = () => {
   if (isLoading || !proposal) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+        <div className="animate-spin h-8 w-8 border-2 border-[#4a382a] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -149,29 +148,29 @@ export const ProposalEditorPage: React.FC = () => {
   const calculatedTotal = pricingItems.reduce((acc, item) => acc + item.amount, 0);
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6 pb-12 animate-fade-in">
       {/* Action Header */}
-      <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-16 z-30 shadow-xl">
-        <div className="space-y-1 text-center md:text-left flex-1">
+      <div className="warm-glass-card border border-[#e6dbc9] p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-16 z-30 shadow-sm">
+        <div className="space-y-1 flex-1">
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="text-xl font-bold text-white bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none w-full text-center"
+            className="font-serif-title text-2xl font-normal text-[#2c221e] bg-transparent border-b border-transparent hover:border-[#e3d7c5] focus:border-[#4a382a] focus:outline-none w-full"
           />
-          <div className="flex items-center justify-center gap-3 text-xs text-slate-400">
+          <div className="flex items-center gap-3 text-xs text-[#6e5d53]">
             <input
               type="text"
               value={projectType}
               onChange={(e) => setProjectType(e.target.value)}
               placeholder="Project Type"
-              className="bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none text-center"
+              className="bg-transparent border-b border-transparent hover:border-[#e3d7c5] focus:border-[#4a382a] focus:outline-none"
             />
             <span>•</span>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="bg-slate-950 border border-slate-800 text-xs font-semibold rounded-lg px-2 py-1 text-slate-200"
+              className="bg-[#fcfbf8] border border-[#e3d7c5] text-xs font-bold rounded-lg px-2 py-1 text-[#2c221e]"
             >
               <option value="draft">Draft</option>
               <option value="sent">Sent</option>
@@ -181,27 +180,27 @@ export const ProposalEditorPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2 flex-wrap shrink-0">
+        <div className="flex items-center gap-2 flex-wrap shrink-0">
           <button
             onClick={() => {
               setActiveTab('versions');
               fetchVersions();
             }}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#eee6da] hover:bg-[#e4dacb] text-[#4a382a] border border-[#e2d6c3] flex items-center gap-1.5 transition-colors"
           >
             <History className="h-4 w-4" />
             <span>Versions</span>
           </button>
           <button
             onClick={handleDownloadPDF}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600/30 flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#eef5eb] border border-[#cbe3c5] text-[#2e6b22] hover:bg-[#e1f0dc] flex items-center gap-1.5 transition-colors"
           >
             <Download className="h-4 w-4" />
             <span>PDF Export</span>
           </button>
           <button
             onClick={() => setShowShareModal(true)}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-600/20 border border-blue-500/30 text-blue-400 hover:bg-blue-600/30 flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#f1eae0] border border-[#e3d7c5] text-[#4a382a] hover:bg-[#e8decb] flex items-center gap-1.5 transition-colors"
           >
             <Share2 className="h-4 w-4" />
             <span>Share Link</span>
@@ -209,7 +208,7 @@ export const ProposalEditorPage: React.FC = () => {
           <button
             onClick={() => saveMutation.mutate()}
             disabled={saveMutation.isPending}
-            className="px-5 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-1.5 shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50"
+            className="px-5 py-2 rounded-xl text-xs font-bold bg-[#4a382a] hover:bg-[#382a1e] text-white flex items-center gap-1.5 shadow-sm transition-all disabled:opacity-50"
           >
             <Save className="h-4 w-4" />
             <span>{saveMutation.isPending ? 'Saving...' : 'Save Changes'}</span>
@@ -218,22 +217,22 @@ export const ProposalEditorPage: React.FC = () => {
       </div>
 
       {/* Editor Sub-Navigation Tabs */}
-      <div className="flex justify-center border-b border-slate-800 space-x-6 text-sm font-semibold">
+      <div className="flex border-b border-[#e6dbc9] space-x-6 text-sm font-bold">
         <button
           onClick={() => setActiveTab('content')}
           className={`pb-3 transition-colors ${
-            activeTab === 'content' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'content' ? 'text-[#4a382a] border-b-2 border-[#4a382a]' : 'text-[#6e5d53] hover:text-[#2c221e]'
           }`}
         >
-          Proposal Content & Sections ({sections.length})
+          Proposal Content ({sections.length})
         </button>
         <button
           onClick={() => setActiveTab('pricing')}
           className={`pb-3 transition-colors ${
-            activeTab === 'pricing' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'pricing' ? 'text-[#4a382a] border-b-2 border-[#4a382a]' : 'text-[#6e5d53] hover:text-[#2c221e]'
           }`}
         >
-          Pricing & Milestones Engine (${calculatedTotal.toLocaleString()})
+          Pricing & Milestones (${calculatedTotal.toLocaleString()})
         </button>
         <button
           onClick={() => {
@@ -241,7 +240,7 @@ export const ProposalEditorPage: React.FC = () => {
             fetchVersions();
           }}
           className={`pb-3 transition-colors ${
-            activeTab === 'versions' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'versions' ? 'text-[#4a382a] border-b-2 border-[#4a382a]' : 'text-[#6e5d53] hover:text-[#2c221e]'
           }`}
         >
           Version History
@@ -252,10 +251,10 @@ export const ProposalEditorPage: React.FC = () => {
       {activeTab === 'content' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <p className="text-xs text-slate-400 text-center flex-1">Reorder, edit titles, or format markdown section content below.</p>
+            <p className="text-xs text-[#6e5d53]">Reorder, edit titles, or format section content below.</p>
             <button
               onClick={handleAddSection}
-              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl shrink-0"
+              className="text-xs font-bold text-[#4a382a] hover:text-[#945f32] flex items-center gap-1 bg-[#eee6da] border border-[#e2d6c3] px-3 py-1.5 rounded-xl shrink-0"
             >
               <Plus className="h-3.5 w-3.5" /> Add Section
             </button>
@@ -263,7 +262,7 @@ export const ProposalEditorPage: React.FC = () => {
 
           <div className="space-y-6">
             {sections.map((sec, idx) => (
-              <div key={idx} className="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-3 text-center">
+              <div key={idx} className="warm-glass-card border border-[#e6dbc9] p-6 rounded-3xl space-y-3">
                 <div className="flex items-center justify-between gap-4">
                   <input
                     type="text"
@@ -273,26 +272,26 @@ export const ProposalEditorPage: React.FC = () => {
                       updated[idx].title = e.target.value;
                       setSections(updated);
                     }}
-                    className="text-lg font-bold text-white bg-transparent border-b border-transparent hover:border-slate-700 focus:border-blue-500 focus:outline-none w-full text-center"
+                    className="font-bold text-[#2c221e] text-lg bg-transparent border-b border-transparent hover:border-[#e3d7c5] focus:border-[#4a382a] focus:outline-none w-full"
                   />
                   <div className="flex items-center gap-1 shrink-0">
                     <button
                       onClick={() => handleMoveSection(idx, 'up')}
                       disabled={idx === 0}
-                      className="p-1 text-slate-400 hover:text-white disabled:opacity-30"
+                      className="p-1 text-[#6e5d53] hover:text-[#2c221e] disabled:opacity-30"
                     >
                       <ArrowUp className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => handleMoveSection(idx, 'down')}
                       disabled={idx === sections.length - 1}
-                      className="p-1 text-slate-400 hover:text-white disabled:opacity-30"
+                      className="p-1 text-[#6e5d53] hover:text-[#2c221e] disabled:opacity-30"
                     >
                       <ArrowDown className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => handleRemoveSection(idx)}
-                      className="p-1 text-slate-400 hover:text-red-400 ml-2"
+                      className="p-1 text-[#6e5d53] hover:text-[#a82525] ml-2"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -307,7 +306,7 @@ export const ProposalEditorPage: React.FC = () => {
                     updated[idx].content = e.target.value;
                     setSections(updated);
                   }}
-                  className="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono resize-y text-center"
+                  className="w-full p-4 bg-[#fcfbf8] border border-[#e3d7c5] rounded-2xl text-[#2c221e] text-sm focus:outline-none focus:ring-2 focus:ring-[#4a382a]/20 font-sans resize-y shadow-inner leading-relaxed"
                 />
               </div>
             ))}
@@ -319,30 +318,30 @@ export const ProposalEditorPage: React.FC = () => {
       {activeTab === 'pricing' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <p className="text-xs text-slate-400 text-center flex-1">Modify milestone pricing, hours, and rates.</p>
+            <p className="text-xs text-[#6e5d53]">Modify milestone pricing, hours, and rates.</p>
             <button
               onClick={handleAddPricingItem}
-              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl shrink-0"
+              className="text-xs font-bold text-[#4a382a] hover:text-[#945f32] flex items-center gap-1 bg-[#eee6da] border border-[#e2d6c3] px-3 py-1.5 rounded-xl shrink-0"
             >
               <Plus className="h-3.5 w-3.5" /> Add Milestone Item
             </button>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-slate-950 text-xs uppercase text-slate-400 border-b border-slate-800">
+          <div className="warm-glass-card border border-[#e6dbc9] rounded-3xl overflow-hidden shadow-sm">
+            <table className="w-full text-left text-sm text-[#2c221e]">
+              <thead className="bg-[#f5efe6] text-xs uppercase text-[#6e5d53] border-b border-[#e6dbc9] font-bold">
                 <tr>
-                  <th className="p-4 text-center">Milestone Title</th>
-                  <th className="p-4 text-center">Description</th>
+                  <th className="p-4">Milestone Title</th>
+                  <th className="p-4">Description</th>
                   <th className="p-4 w-24 text-center">Hours</th>
                   <th className="p-4 w-28 text-center">Rate ($)</th>
-                  <th className="p-4 w-32 text-center">Amount ($)</th>
+                  <th className="p-4 w-32 text-right">Amount ($)</th>
                   <th className="p-4 w-12 text-center"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-[#e6dbc9] bg-[#fcfbf8]">
                 {pricingItems.map((item, idx) => (
-                  <tr key={idx} className="hover:bg-slate-800/30">
+                  <tr key={idx} className="hover:bg-[#f5efe6]">
                     <td className="p-4">
                       <input
                         type="text"
@@ -352,7 +351,7 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].title = e.target.value;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white font-semibold text-sm w-full text-center"
+                        className="bg-[#f5efe6] border border-[#e3d7c5] px-3 py-1.5 rounded-lg text-[#2c221e] font-bold text-sm w-full"
                       />
                     </td>
                     <td className="p-4">
@@ -364,7 +363,7 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].description = e.target.value;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300 text-xs w-full text-center"
+                        className="bg-[#f5efe6] border border-[#e3d7c5] px-3 py-1.5 rounded-lg text-[#6e5d53] text-xs w-full"
                       />
                     </td>
                     <td className="p-4">
@@ -378,7 +377,7 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].amount = hrs * updated[idx].rate;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white text-xs w-full text-center"
+                        className="bg-[#f5efe6] border border-[#e3d7c5] px-3 py-1.5 rounded-lg text-[#2c221e] text-xs w-full text-center font-bold"
                       />
                     </td>
                     <td className="p-4">
@@ -392,24 +391,24 @@ export const ProposalEditorPage: React.FC = () => {
                           updated[idx].amount = updated[idx].hours * r;
                           setPricingItems(updated);
                         }}
-                        className="bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-white text-xs w-full text-center"
+                        className="bg-[#f5efe6] border border-[#e3d7c5] px-3 py-1.5 rounded-lg text-[#2c221e] text-xs w-full text-center font-bold"
                       />
                     </td>
-                    <td className="p-4 text-center font-extrabold text-emerald-400">
+                    <td className="p-4 text-right font-extrabold text-[#2e6b22]">
                       ${item.amount.toLocaleString()}
                     </td>
                     <td className="p-4 text-center">
-                      <button onClick={() => handleRemovePricingItem(idx)} className="text-slate-500 hover:text-red-400">
+                      <button onClick={() => handleRemovePricingItem(idx)} className="text-[#8c7b6f] hover:text-[#a82525]">
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-              <tfoot className="bg-slate-950 border-t border-slate-800 font-bold">
+              <tfoot className="bg-[#f5efe6] border-t border-[#e6dbc9] font-bold">
                 <tr>
-                  <td colSpan={4} className="p-4 text-center text-slate-300">Total Investment Summary:</td>
-                  <td className="p-4 text-center text-emerald-400 text-lg">${calculatedTotal.toLocaleString()}</td>
+                  <td colSpan={4} className="p-4 text-[#2c221e]">Total Investment Summary:</td>
+                  <td className="p-4 text-right text-[#2e6b22] text-lg">${calculatedTotal.toLocaleString()}</td>
                   <td></td>
                 </tr>
               </tfoot>
@@ -420,52 +419,52 @@ export const ProposalEditorPage: React.FC = () => {
 
       {/* TAB 3: VERSIONS HISTORY */}
       {activeTab === 'versions' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 text-center">
-          <h3 className="text-lg font-bold text-white text-center">Proposal Revision History</h3>
+        <div className="warm-glass-card border border-[#e6dbc9] rounded-3xl p-6 space-y-4">
+          <h3 className="font-serif-title text-xl font-normal text-[#2c221e]">Proposal Revision History</h3>
           {versions.length > 0 ? (
             <div className="space-y-3">
               {versions.map((ver) => (
-                <div key={ver.id} className="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-center justify-between text-center">
-                  <div className="text-center flex-1">
-                    <span className="text-xs font-bold text-blue-400 text-center">Version #{ver.version_number}</span>
-                    <p className="text-xs text-slate-400 text-center">Saved on {new Date(ver.created_at).toLocaleString()}</p>
+                <div key={ver.id} className="bg-[#fcfbf8] border border-[#e6dbc9] p-4 rounded-2xl flex items-center justify-between">
+                  <div>
+                    <span className="text-xs font-bold text-[#4a382a]">Version #{ver.version_number}</span>
+                    <p className="text-xs text-[#6e5d53]">Saved on {new Date(ver.created_at).toLocaleString()}</p>
                   </div>
-                  <span className="text-xs text-slate-300 font-medium shrink-0">
+                  <span className="text-xs text-[#2c221e] font-semibold">
                     {ver.data.sections?.length || 0} Sections • ${ver.data.total_price?.toLocaleString() || 0}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-400 text-center">Click "Save Changes" to record version snapshots.</p>
+            <p className="text-xs text-[#6e5d53]">Click "Save Changes" to record version snapshots.</p>
           )}
         </div>
       )}
 
       {/* Share Modal */}
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4 text-center">
-            <h3 className="text-lg font-bold text-white text-center">Share Proposal with Client</h3>
-            <p className="text-xs text-slate-400 text-center">Send this unique link to your client for online viewing, PDF download, and acceptance.</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2c221e]/40 backdrop-blur-md animate-fade-in">
+          <div className="warm-glass-card bg-[#faf7f2] border border-[#e6dbc9] rounded-3xl w-full max-w-md p-6 shadow-xl space-y-4">
+            <h3 className="font-serif-title text-xl font-bold text-[#2c221e]">Share Proposal with Client</h3>
+            <p className="text-xs text-[#6e5d53]">Send this unique link to your client for online viewing, PDF download, and acceptance.</p>
 
-            <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-center justify-between gap-2">
-              <span className="text-xs font-mono text-slate-300 truncate">
+            <div className="bg-[#fcfbf8] border border-[#e3d7c5] p-3 rounded-2xl flex items-center justify-between gap-2">
+              <span className="text-xs font-mono text-[#2c221e] truncate">
                 {window.location.origin}/p/{proposal.token}
               </span>
               <button
                 onClick={handleCopyShareLink}
-                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1 transition-colors shrink-0"
+                className="px-3 py-1.5 bg-[#4a382a] hover:bg-[#382a1e] text-white text-xs font-bold rounded-xl flex items-center gap-1 transition-colors shrink-0"
               >
                 {copiedLink ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                 <span>{copiedLink ? 'Copied!' : 'Copy'}</span>
               </button>
             </div>
 
-            <div className="flex justify-center pt-2">
+            <div className="flex justify-end pt-2">
               <button
                 onClick={() => setShowShareModal(false)}
-                className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold hover:bg-slate-700 transition-colors"
+                className="px-4 py-2 bg-[#eee6da] text-[#4a382a] rounded-xl text-xs font-bold hover:bg-[#e4dacb] transition-colors"
               >
                 Close
               </button>
